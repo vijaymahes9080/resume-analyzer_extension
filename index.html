@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResumeAI Analyzer</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <h1>Resume<span>AI</span></h1>
+            </div>
+            <div class="theme-toggle" id="themeToggle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </div>
+        </header>
+
+        <main id="mainContent">
+            <!-- Input Section -->
+            <section id="inputSection" class="active-section">
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="resume">Resume</button>
+                    <button class="tab-btn" data-tab="job">Job Description</button>
+                </div>
+
+                <div class="input-area fade-in">
+                    <div id="resumeInput" class="input-group active">
+                        <label for="resumeText">Paste your resume text here</label>
+                        <textarea id="resumeText" placeholder="John Doe&#10;Software Engineer..."></textarea>
+                    </div>
+                    <div id="jobInput" class="input-group">
+                        <label for="jobText">Paste job description (Optional)</label>
+                        <textarea id="jobText" placeholder="We are looking for a..."></textarea>
+                    </div>
+                </div>
+
+                <button id="analyzeBtn" class="primary-btn">
+                    <span>Analyze Now</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+            </section>
+
+            <!-- Results Section -->
+            <section id="resultsSection" class="hidden-section">
+                <button id="backBtn" class="text-btn">← Back to Input</button>
+                
+                <div class="score-card">
+                    <div class="score-circle">
+                        <svg viewBox="0 0 36 36" class="circular-chart orange">
+                            <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <path class="circle" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <text x="18" y="20.35" class="percentage">0%</text>
+                        </svg>
+                    </div>
+                    <div class="score-details">
+                        <h3>ATS Match Score</h3>
+                        <p id="scoreMessage">Analyzing...</p>
+                    </div>
+                </div>
+
+                <div class="insights-container">
+                    <div class="insight-card">
+                        <h4>Missing Keywords</h4>
+                        <ul id="missingKeywordsList" class="tag-list">
+                            <!-- Populated by JS -->
+                        </ul>
+                    </div>
+
+                    <div class="insight-card">
+                        <h4>Structure Check</h4>
+                        <ul id="structureList" class="check-list">
+                            <!-- Populated by JS -->
+                        </ul>
+                    </div>
+                    
+                    <div class="insight-card">
+                        <h4>Feedback</h4>
+                        <div id="feedbackText" class="feedback-content">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>
