@@ -1,0 +1,5 @@
+/* Placeholder for an icon - usually user should provide images, but for completeness 
+   I will create a dummy file so the manifest doesn't error out hard 
+   if loaded unpacked, though it really needs actual PNGs.
+   I'll make a simple gitplaceholder reference or just ensure directory exists.
+*/

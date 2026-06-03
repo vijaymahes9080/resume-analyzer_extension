@@ -1,0 +1,3 @@
+[
+  "d:/current project/xxtension/"
+]

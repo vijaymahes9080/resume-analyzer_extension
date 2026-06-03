@@ -1,0 +1,15 @@
+{
+    "manifest_version": 3,
+    "name": "ResumeAI Analyzer",
+    "version": "1.0",
+    "description": "Smart, free resume analysis tool to optimize your job application.",
+    "action": {
+        "default_popup": "popup.html",
+        "default_title": "Analyze Resume"
+    },
+    "permissions": [
+        "storage",
+        "activeTab",
+        "scripting"
+    ]
+}
