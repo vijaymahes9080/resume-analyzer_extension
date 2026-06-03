@@ -27,7 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // State
-    let currentTheme = localStorage.getItem('theme') || 'dark';
+    let currentTheme = 'dark';
+    try {
+        currentTheme = localStorage.getItem('theme') || 'dark';
+    } catch (e) {
+        console.warn("localStorage is not accessible in this context. Defaulting to dark theme.");
+    }
 
     // --- Initialization ---
     if (currentTheme === 'light') {
@@ -177,7 +182,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Theme Toggle
     buttons.theme.addEventListener('click', () => {
         document.body.classList.toggle('light-theme');
-        localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
+        try {
+            localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
+        } catch (e) {
+            console.warn("Could not save theme to localStorage:", e);
+        }
     });
 
     // Analyze Click
