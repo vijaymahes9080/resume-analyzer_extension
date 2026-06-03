@@ -121,36 +121,40 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Auto-Fetch Content from Page ---
-    try {
-        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-            if (tabs[0]) {
-                chrome.scripting.executeScript({
-                    target: { tabId: tabs[0].id },
-                    func: () => document.body.innerText
-                }, (results) => {
-                    if (chrome.runtime.lastError || !results || !results[0]) return;
+    if (typeof chrome !== 'undefined' && chrome.tabs && chrome.tabs.query) {
+        try {
+            chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                if (tabs && tabs[0]) {
+                    chrome.scripting.executeScript({
+                        target: { tabId: tabs[0].id },
+                        func: () => document.body.innerText
+                    }, (results) => {
+                        if (chrome.runtime && chrome.runtime.lastError) return;
+                        if (!results || !results[0]) return;
 
-                    const pageText = results[0].result;
-                    // If page has substantial text, assume it's the resume/content
-                    if (pageText && pageText.length > 100) {
-                        inputs.resume.value = pageText;
-                        inputs.resume.style.borderColor = 'var(--success)';
+                        const pageText = results[0].result;
+                        // If page has substantial text, assume it's the resume/content
+                        if (pageText && pageText.length > 100) {
+                            inputs.resume.value = pageText;
+                            inputs.resume.style.borderColor = 'var(--success)';
 
-                        // Optional: Create a small toast or label to indicate success
-                        const label = document.querySelector('label[for="resumeText"]');
-                        const originalText = label.textContent;
-                        label.textContent = "Resume text loaded from current page ✓";
-                        label.style.color = "var(--success)";
+                            // Optional: Create a small toast or label to indicate success
+                            const label = document.querySelector('label[for="resumeText"]');
+                            if (label) {
+                                label.textContent = "Resume text loaded from current page ✓";
+                                label.style.color = "var(--success)";
+                            }
 
-                        setTimeout(() => {
-                            inputs.resume.style.borderColor = ''; // reset
-                        }, 2000);
-                    }
-                });
-            }
-        });
-    } catch (e) {
-        console.log("Cannot read page content", e);
+                            setTimeout(() => {
+                                inputs.resume.style.borderColor = ''; // reset
+                            }, 2000);
+                        }
+                    });
+                }
+            });
+        } catch (e) {
+            console.log("Cannot read page content", e);
+        }
     }
 
     // --- UI Handlers ---
